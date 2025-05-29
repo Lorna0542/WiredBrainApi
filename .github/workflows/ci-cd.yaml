@@ -1,25 +1,24 @@
 name: Wired Brain Workflow
 
 on: 
-    workflow_dispatch:
-    push:
-        branches: ['main']
+  workflow_dispatch:
+  push:
+    branches: ['main']
 
-    jobs:
-        build:
-            runs-on: ubuntu-lastes commit
-    
-            steps:
-        ~   uses: actions/checkout@v4
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-        ~   name: Setup .NET
-            uses: actions/setup-dotnet@v4
-            with:
-                donet-version: 8.0.x
+    steps:
+      - uses: actions/checkout@v4
 
-        ~   name: Restore Dependencies
-            runs: dotnet Restore
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
 
-        ~   id: build
-            name: build
-            run: dotnet build --no-restore
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
